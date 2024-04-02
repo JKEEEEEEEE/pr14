@@ -1,6 +1,18 @@
-﻿namespace Hotels
-{
-    public class gitlab_ci
-    {
-    }
-}
+﻿image: mcr.microsoft.com/dotnet/core/sdk:latest
+
+stages:
+  - build
+
+before_script:
+  - dotnet restore
+
+build:
+  stage: build
+  script:
+    - msbuild /t:Rebuild
+  artifacts:
+    paths:
+      - 'Hotels/bin/'
+      - 'Hotels/obj/'
+  only:
+    - master  # Настройте ваши предпочтительные ветки для запуска pipeline
